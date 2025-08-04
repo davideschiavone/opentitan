@@ -100,9 +100,14 @@ fusesoc_build(
     ],
     data = ["//hw/ip/otbn:rtl_files"],
     make_options = ":make_options",
-    output_groups = {
-        "binary": ["lowrisc_dv_top_earlgrey_chip_verilator_sim_0.1/sim-verilator/Vchip_sim_tb"],
-    },
+    output_groups = select({
+        ":use_top_integrated_earlgrey": {
+            "binary": ["lowrisc_dv_top_integrated_earlgrey_chip_verilator_sim_0.1/sim-verilator/Vchip_sim_tb"],
+        },
+        "//conditions:default": {
+            "binary": ["lowrisc_dv_top_earlgrey_chip_verilator_sim_0.1/sim-verilator/Vchip_sim_tb"],
+        },
+    }),
 
     systems = select({
         ":use_top_integrated_earlgrey": ["lowrisc:dv:chip_integrated_earlgrey_verilator_sim"],
