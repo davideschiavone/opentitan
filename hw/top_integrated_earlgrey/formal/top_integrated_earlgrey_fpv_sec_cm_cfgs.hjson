@@ -197,7 +197,7 @@
              {
                name: pinmux_sec_cm
                dut: pinmux
-               fusesoc_core: lowrisc:earlgrey_ip:pinmux
+               fusesoc_core: lowrisc:integrated_earlgrey_ip:pinmux
                import_cfgs: ["{proj_root}/hw/formal/tools/dvsim/common_fpv_cfg.hjson"]
                rel_path: "hw/top_integrated_earlgrey/ip_autogen/pinmux/{sub_flow}/{tool}/sec_cm"
                task: "FpvSecCm"
@@ -205,7 +205,7 @@
               {
                name: rv_plic_sec_cm
                dut: rv_plic
-               fusesoc_core: lowrisc:earlgrey_ip:rv_plic_fpv
+               fusesoc_core: lowrisc:integrated_earlgrey_ip:rv_plic_fpv
                import_cfgs: ["{proj_root}/hw/formal/tools/dvsim/common_fpv_cfg.hjson"]
                rel_path: "hw/top_integrated_earlgrey/ip/rv_plic/{sub_flow}/{tool}/sec_cm"
                task: "FpvSecCm"

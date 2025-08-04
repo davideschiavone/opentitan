@@ -10,7 +10,7 @@ virtual:
 filesets:
   files_rtl:
     depend:
-      - lowrisc:earlgrey_constants:top_pkg
+      - lowrisc:integrated_earlgrey_constants:top_pkg
       - lowrisc:ip:lc_ctrl_pkg
     files:
       - rtl/ast_pkg.sv

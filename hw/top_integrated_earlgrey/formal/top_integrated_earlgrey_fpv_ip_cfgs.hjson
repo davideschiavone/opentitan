@@ -46,7 +46,7 @@
              {
                name: rv_plic_fpv
                dut: rv_plic_tb
-               fusesoc_core: lowrisc:earlgrey_ip:rv_plic_fpv
+               fusesoc_core: lowrisc:integrated_earlgrey_ip:rv_plic_fpv
                import_cfgs: ["{proj_root}/hw/formal/tools/dvsim/common_fpv_cfg.hjson"]
                rel_path: "hw/top_integrated_earlgrey/ip_autogen/rv_plic/{sub_flow}/{tool}"
                cov: true

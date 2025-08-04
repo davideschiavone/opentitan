@@ -13,7 +13,7 @@ filesets:
       - lowrisc:systems:top_integrated_earlgrey_ast
       - lowrisc:systems:top_integrated_earlgrey_padring
       - lowrisc:earlgrey_systems:scan_role_pkg
-      - lowrisc:earlgrey_ip:flash_ctrl_prim_reg_top
+      - lowrisc:integrated_earlgrey_ip:flash_ctrl_prim_reg_top
       # TODO(#27347): prim_legacy_pkg is deprecated
       - lowrisc:prim:prim_legacy_pkg
       - lowrisc:prim_xilinx_ultrascale:all

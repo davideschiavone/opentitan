@@ -23,6 +23,7 @@ filegroup(
         "//hw/top_integrated_earlgrey/ip_autogen/rstmgr:rtl_files",
         "//hw/top_integrated_earlgrey/ip_autogen/rv_core_ibex:rtl_files",
         "//hw/top_integrated_earlgrey/ip_autogen/rv_plic:rtl_files",
+        "//hw/top_integrated_earlgrey/ip/host_device:rtl_files",
     ],
 )
 

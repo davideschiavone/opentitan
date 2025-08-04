@@ -10,7 +10,7 @@ filesets:
       - lowrisc:systems:top_integrated_earlgrey:0.1
       - lowrisc:systems:top_integrated_earlgrey_pkg
       - lowrisc:systems:top_integrated_earlgrey_padring
-      - lowrisc:earlgrey_ip:flash_ctrl_prim_reg_top
+      - lowrisc:integrated_earlgrey_ip:flash_ctrl_prim_reg_top
       - "fileset_partner ? (partner:systems:top_integrated_earlgrey_ast)"
       - "fileset_partner ? (partner:systems:top_integrated_earlgrey_scan_role_pkg)"
       - "fileset_partner ? (partner:prim_tech:all)"

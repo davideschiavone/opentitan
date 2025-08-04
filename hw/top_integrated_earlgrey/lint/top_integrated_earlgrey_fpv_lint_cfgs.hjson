@@ -159,7 +159,7 @@
              }
              {
                name: top_integrated_earlgrey_rv_plic_fpv
-               fusesoc_core: lowrisc:earlgrey_ip:rv_plic_fpv
+               fusesoc_core: lowrisc:integrated_earlgrey_ip:rv_plic_fpv
                import_cfgs: ["{proj_root}/hw/lint/tools/dvsim/common_lint_cfg.hjson"]
                additional_fusesoc_argument: "--mapping=lowrisc:systems:top_integrated_earlgrey:0.1"
                rel_path: "hw/top_integrated_earlgrey/ip_autogen/rv_plic/fpv/lint/{tool}"

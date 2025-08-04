@@ -17,8 +17,8 @@ filesets:
   files_dv:
     depend:
       # Place the autogen packages first to avoid conflicts
-      - lowrisc:earlgrey_ip:alert_handler_reg
-      - lowrisc:earlgrey_ip:pwrmgr_pkg
+      - lowrisc:integrated_earlgrey_ip:alert_handler_reg
+      - lowrisc:integrated_earlgrey_ip:pwrmgr_pkg
       - lowrisc:ip:tlul
       - lowrisc:dv:top_integrated_earlgrey_chip_test
       - lowrisc:earlgrey_dv:clkmgr_sva

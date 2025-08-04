@@ -36,7 +36,7 @@ filesets:
       - lowrisc:dv:i2c_agent
       - lowrisc:dv:pattgen_agent
       - lowrisc:ip:otp_ctrl_pkg
-      - lowrisc:earlgrey_ip:pwrmgr_pkg
+      - lowrisc:integrated_earlgrey_ip:pwrmgr_pkg
       - lowrisc:dv:lc_ctrl_dv_utils
       - "!fileset_partner ? (lowrisc:systems:top_integrated_earlgrey_ast_pkg)"
       - "fileset_partner ? (partner:systems:top_integrated_earlgrey_ast_pkg)"

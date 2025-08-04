@@ -9,7 +9,7 @@ compile_device_app: test_rom otp_img
 
 .PHONY: compile_verilator
 compile_verilator:
-	./bazelisk.sh build --subcommands --sandbox_debug --verbose_failures //hw:verilator_real
+	./bazelisk.sh build --subcommands --sandbox_debug --verbose_failures //hw:verilator_real --define USE_INTEGRATED_EARLGRAY=1
 
 
 run_verilator:

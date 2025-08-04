@@ -16,7 +16,7 @@ filesets:
       - lowrisc:prim:clock_inv
       - lowrisc:prim:lc_dec
       - lowrisc:prim:lfsr
-      - lowrisc:earlgrey_ip:pinmux_pkg
+      - lowrisc:integrated_earlgrey_ip:pinmux_pkg
       - lowrisc:prim:assert
       - lowrisc:prim:mubi
       - lowrisc:prim:multibit_sync
@@ -25,9 +25,9 @@ filesets:
       - lowrisc:prim:multibit_sync
       - lowrisc:ip:lc_ctrl_pkg
       - lowrisc:ip:edn_pkg
-      - lowrisc:earlgrey_ip:alert_handler_pkg
-      - lowrisc:earlgrey_ip:clkmgr_pkg
-      - lowrisc:earlgrey_ip:rstmgr_pkg
+      - lowrisc:integrated_earlgrey_ip:alert_handler_pkg
+      - lowrisc:integrated_earlgrey_ip:clkmgr_pkg
+      - lowrisc:integrated_earlgrey_ip:rstmgr_pkg
       - lowrisc:systems:top_integrated_earlgrey_ast_pkg
     files:
       - rtl/ast_reg_pkg.sv
