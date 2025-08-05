@@ -158,7 +158,10 @@ tl_device_t xbar_devices[$] = '{
         '{32'h40480000, 32'h404803ff}
     }},
     '{"host_ctrl", '{
-        '{32'h50000000, 32'h500003ff}
+        '{32'h60000000, 32'h6fffffff}
+    }},
+    '{"mailbox", '{
+        '{32'h40480400, 32'h4048043f}
     }}};
 
   // List of Xbar hosts
@@ -197,6 +200,7 @@ tl_host_t xbar_hosts[$] = '{
         "alert_handler",
         "ast",
         "host_ctrl",
+        "mailbox",
         "sram_ctrl_ret_aon__ram",
         "sram_ctrl_ret_aon__regs",
         "aon_timer_aon",
@@ -250,6 +254,7 @@ tl_host_t xbar_hosts[$] = '{
         "alert_handler",
         "ast",
         "host_ctrl",
+        "mailbox",
         "sram_ctrl_ret_aon__ram",
         "sram_ctrl_ret_aon__regs",
         "aon_timer_aon",

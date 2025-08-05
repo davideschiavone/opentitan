@@ -45,3 +45,4 @@ initial force dut.rst_peri_ni = rst_n;
 `CONNECT_TL_DEVICE_IF(adc_ctrl_aon, dut, clk_peri_i, rst_n)
 `CONNECT_TL_DEVICE_IF(ast, dut, clk_peri_i, rst_n)
 `CONNECT_TL_DEVICE_IF(host_ctrl, dut, clk_peri_i, rst_n)
+`CONNECT_TL_DEVICE_IF(mailbox, dut, clk_peri_i, rst_n)

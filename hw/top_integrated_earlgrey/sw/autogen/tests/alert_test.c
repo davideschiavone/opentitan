@@ -25,6 +25,7 @@
 #include "sw/device/lib/dif/autogen/dif_keymgr_autogen.h"
 #include "sw/device/lib/dif/autogen/dif_kmac_autogen.h"
 #include "sw/device/lib/dif/autogen/dif_lc_ctrl_autogen.h"
+#include "sw/device/lib/dif/autogen/dif_mailbox_autogen.h"
 #include "sw/device/lib/dif/autogen/dif_otbn_autogen.h"
 #include "sw/device/lib/dif/autogen/dif_otp_ctrl_autogen.h"
 #include "sw/device/lib/dif/autogen/dif_pattgen_autogen.h"
@@ -71,6 +72,7 @@ static dif_i2c_t i2c2;
 static dif_keymgr_t keymgr;
 static dif_kmac_t kmac;
 static dif_lc_ctrl_t lc_ctrl;
+static dif_mailbox_t mailbox;
 static dif_otbn_t otbn;
 static dif_otp_ctrl_t otp_ctrl;
 static dif_pattgen_t pattgen;
@@ -153,6 +155,9 @@ static void init_peripherals(void) {
 
   base_addr = mmio_region_from_addr(TOP_INTEGRATED_EARLGREY_LC_CTRL_REGS_BASE_ADDR);
   CHECK_DIF_OK(dif_lc_ctrl_init(base_addr, &lc_ctrl));
+
+  base_addr = mmio_region_from_addr(TOP_INTEGRATED_EARLGREY_MAILBOX_BASE_ADDR);
+  CHECK_DIF_OK(dif_mailbox_init(base_addr, &mailbox));
 
   base_addr = mmio_region_from_addr(TOP_INTEGRATED_EARLGREY_OTBN_BASE_ADDR);
   CHECK_DIF_OK(dif_otbn_init(base_addr, &otbn));
@@ -527,6 +532,21 @@ static void trigger_alert_test(void) {
 
     // Verify that alert handler received it.
     exp_alert = kTopIntegratedEarlgreyAlertIdLcCtrlFatalProgError + i;
+    CHECK_DIF_OK(dif_alert_handler_alert_is_cause(
+        &alert_handler, exp_alert, &is_cause));
+    CHECK(is_cause, "Expect alert %d!", exp_alert);
+
+    // Clear alert cause register
+    CHECK_DIF_OK(dif_alert_handler_alert_acknowledge(
+        &alert_handler, exp_alert));
+  }
+
+  // Write mailbox's alert_test reg and check alert_cause.
+  for (dif_mailbox_alert_t i = 0; i < 1; ++i) {
+    CHECK_DIF_OK(dif_mailbox_alert_force(&mailbox, kDifMailboxAlertFatalFault + i));
+
+    // Verify that alert handler received it.
+    exp_alert = kTopIntegratedEarlgreyAlertIdMailboxFatalFault + i;
     CHECK_DIF_OK(dif_alert_handler_alert_is_cause(
         &alert_handler, exp_alert, &is_cause));
     CHECK(is_cause, "Expect alert %d!", exp_alert);

@@ -526,6 +526,23 @@
  */
 #define TOP_INTEGRATED_EARLGREY_AON_TIMER_AON_SIZE_BYTES 0x40
 /**
+ * Peripheral base address for mailbox in top integrated_earlgrey.
+ *
+ * This should be used with #mmio_region_from_addr to access the memory-mapped
+ * registers associated with the peripheral (usually via a DIF).
+ */
+#define TOP_INTEGRATED_EARLGREY_MAILBOX_BASE_ADDR 0x40480400
+
+/**
+ * Peripheral size for mailbox in top integrated_earlgrey.
+ *
+ * This is the size (in bytes) of the peripheral's reserved memory area. All
+ * memory-mapped registers associated with this peripheral should have an
+ * address between #TOP_INTEGRATED_EARLGREY_MAILBOX_BASE_ADDR and
+ * `TOP_INTEGRATED_EARLGREY_MAILBOX_BASE_ADDR + TOP_INTEGRATED_EARLGREY_MAILBOX_SIZE_BYTES`.
+ */
+#define TOP_INTEGRATED_EARLGREY_MAILBOX_SIZE_BYTES 0x40
+/**
  * Peripheral base address for ast in top integrated_earlgrey.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped

@@ -92,6 +92,7 @@ tl_if sysrst_ctrl_aon_tl_if(clk_io_div4, rst_n);
 tl_if adc_ctrl_aon_tl_if(clk_io_div4, rst_n);
 tl_if ast_tl_if(clk_io_div4, rst_n);
 tl_if host_ctrl_tl_if(clk_io_div4, rst_n);
+tl_if mailbox_tl_if(clk_io_div4, rst_n);
 
 initial begin
   wait (xbar_mode !== 1'bx);
@@ -175,6 +176,7 @@ initial begin
     `DRIVE_CHIP_TL_DEVICE_IF(adc_ctrl_aon, adc_ctrl_aon, tl)
     `DRIVE_CHIP_TL_EXT_DEVICE_IF(ast, ast, tl)
     `DRIVE_CHIP_TL_EXT_DEVICE_IF(host_ctrl, host_ctrl, tl)
+    `DRIVE_CHIP_TL_DEVICE_IF(mailbox, mailbox, tl)
 `endif
 
     // And this can consume time, so they go at the end of this block.

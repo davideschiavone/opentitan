@@ -1,0 +1,182 @@
+// Copyright lowRISC contributors (OpenTitan project).
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
+{ name:               "mailbox",
+  human_name:         "Mailbox",
+  one_line_desc:      "Low-power controller for a dual-channel ADC with filtering and debouncing capability",
+  one_paragraph_desc: '''
+  Analog to Digital Converter (ADC) Controller provides a simple front-end to an analog block that allows filtering and debouncing of the sampled data.
+  Mailbox supports 2 ADC channels and 8 filters on the values from the channels.
+  It has debounce timers on the filter output and supports ADCs with 10-bit output.
+  To enable usage while the device is sleeping, it runs on a slow always-on clock.
+  In addition, it has a low power periodic scan mode for monitoring ADC channels.
+  '''
+  // Unique comportable IP identifier defined under KNOWN_CIP_IDS in the regtool.
+  cip_id:             "1",
+  design_spec:        "../doc",
+  dv_doc:             "../doc/dv",
+  hw_checklist:       "../doc/checklist",
+  sw_checklist:       "/sw/device/lib/dif/dif_mailbox",
+  version:            "2.0.0",
+  life_stage:         "L1",
+  design_stage:       "D2S",
+  verification_stage: "V2S",
+  dif_stage:          "S2",
+  notes:              "",
+  clocking: [
+    {clock: "clk_i", reset: "rst_ni", primary: true}
+  ]
+  bus_interfaces: [
+    { protocol: "tlul", direction: "device" }
+  ],
+
+  interrupt_list: [
+    { name: "doorbell",
+      desc: "ADC match or measurement event has occurred",
+      type: "status"
+    }
+    { name: "completion",
+      desc: "ADC match or measurement event has occurred",
+      type: "status"
+    }
+  ],
+  alert_list: [
+    { name: "fatal_fault",
+      desc: '''
+      This fatal alert is triggered when a fatal TL-UL bus integrity fault is detected.
+      '''
+    }
+  ],
+
+  countermeasures: [
+    { name: "BUS.INTEGRITY",
+      desc: "End-to-end bus integrity scheme."
+    }
+  ]
+
+  regwidth: "32",
+  registers: [
+    { name: "reserved_1",
+      desc: "Reserved, must be 0",
+      swaccess: "rw",
+      hwaccess: "none",
+      fields: [
+        { bits: "31:0" }
+      ]
+    }
+    { name: "channel_status",
+      desc: "Indicates which entity has access to the Shared Memory",
+      swaccess: "rw",
+      hwaccess: "none",
+      fields: [
+        { bits: "31:2" }
+        { bits: "1",
+          name: "channel_error",
+          desc: "Must be 0 in absence of errors"
+        }
+        { bits: "0",
+          name: "channel_free",
+          desc: "If 1 the agent own the channel, if 0 the platform own the channel"
+        }
+      ]
+    }
+   { name: "reserved_2",
+      desc: "Reserved, implementation defined (32 bits over 64)",
+      swaccess: "rw",
+      hwaccess: "none",
+      fields: [
+        { bits: "31:0" }
+      ]
+    }
+    { name: "reserved_3",
+      desc: "Reserved, implementation defined (32 bits over 64)",
+      swaccess: "rw",
+      hwaccess: "none",
+      fields: [
+        { bits: "31:0" }
+      ]
+    }
+    { name: "channel_flags",
+      desc: "Defines wheter interrupts or polling is used for communication",
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "31:1" }
+        { bits: "0",
+          name: "intr_enable",
+          desc: "If 1 interruts are used, if 0 polling is used"
+        }
+      ]
+    }
+    { name: "length",
+        desc: "Lenght of payload + header",
+        swaccess: "rw",
+        hwaccess: "none",
+        fields: [
+          { bits: "31:0" }
+        ]
+    }
+    { name: "message_header",
+      desc: "Defines which commanad the message contains",
+      swaccess: "rw",
+      hwaccess: "none",
+      fields: [
+        { bits: "31:28" }
+        { bits: "27:18",
+          name: "Token",
+          desc: "must be same for the msg responses associated to a msg whith the same header"
+        }
+        { bits: "17:10",
+          name: "Protocol_Id",
+          desc: "Identifies to which protocol the command belongs to"
+        }
+        { bits: "9:8",
+          name: "Message_Type",
+          desc: "can be 0,1,2,3 depending on the kind of msg to be sent"
+        }
+        { bits: "7:0",
+          name: "Message_Id",
+          desc: "unique identifier for each command availabe in the protocol pointed by protocol_id"
+        }
+      ]
+    }
+    { name: "message_payload_1",
+      desc: "memory region dedicated to the parameters of the commands and their returns",
+      swaccess: "rw",
+      hwaccess: "none",
+      fields: [
+        { bits: "31:0" }
+      ]
+    }
+    { name: "doorbell",
+      desc: "Rapresents the interrupt to be raised towards the platform",
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "31:1",
+          name: "Preserve_Mask",
+          desc: "These bits must be constant to 0, not used with just one platform and one agent"
+        }
+        { bits: "0",
+          name: "intr",
+          desc: "Interrupt bit"
+        }
+      ]
+    }
+    { name:  "Completion_Interrupt",
+      desc: "Rapresent the interrupt the platform should raise when it finishes to execute the received command",
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "31:1",
+          name: "Preserve_Mask",
+          desc: "These bits must be constant to 0, not used with just one platform and one agent"
+        }
+        { bits: "0",
+          name: "intr",
+          desc: "Interrupt bit"
+        }
+      ]
+    }
+  ]
+}

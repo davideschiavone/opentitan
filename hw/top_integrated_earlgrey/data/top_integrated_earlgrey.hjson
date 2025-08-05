@@ -252,6 +252,7 @@
             "aon_timer_aon",
             "ast",
             "host_ctrl",
+            "mailbox",
             "sensor_ctrl",
             "sram_ctrl_ret_aon",
             "flash_ctrl.core",
@@ -699,6 +700,16 @@
       base_addr: {
         hart: "0x40470000",
       },
+    },
+    { name: "mailbox",
+      type: "mailbox"
+      clock_srcs: {clk_i: "io_div4"},
+      clock_group: "peri",
+      reset_connections: {rst_ni: "lc_io_div4"},
+      domain: ["Aon"],
+      base_addr: {
+        hart: "0x40480400",
+      }
     },
     { name: "ast",
       type: "ast",

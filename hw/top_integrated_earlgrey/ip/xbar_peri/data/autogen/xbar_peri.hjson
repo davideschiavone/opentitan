@@ -187,5 +187,11 @@
       act:    "req"
       package: "tlul_pkg"
     }
+    { struct: "tl"
+      type:   "req_rsp"
+      name:   "tl_mailbox"
+      act:    "req"
+      package: "tlul_pkg"
+    }
   ]
 }

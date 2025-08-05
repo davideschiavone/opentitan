@@ -268,8 +268,8 @@ module chip_earlgrey_verilator (
   tlul_pkg::tl_h2d_t base_ast_bus;
   tlul_pkg::tl_d2h_t ast_base_bus;
 
-  tlul_pkg::tl_h2d_t host_ctrl_req;
-  tlul_pkg::tl_d2h_t host_ctrl_rsp;
+  // tlul_pkg::tl_h2d_t host_ctrl_req;
+  // tlul_pkg::tl_d2h_t host_ctrl_rsp;
 
   assign ast_base_pwr.main_pok = ast_pwst.main_pok;
 
@@ -522,8 +522,10 @@ module chip_earlgrey_verilator (
     .usbdev_usb_ref_pulse_o       ( usb_ref_pulse       ),
     .ast_tl_req_o                 ( base_ast_bus        ),
     .ast_tl_rsp_i                 ( ast_base_bus        ),
-    .host_ctrl_tl_req_o           ( host_ctrl_req       ),
-    .host_ctrl_tl_rsp_i           ( host_ctrl_rsp       ),
+    // .host_ctrl_tl_req_o           ( host_ctrl_req       ),
+    // .host_ctrl_tl_rsp_i           ( host_ctrl_rsp       ),
+    .host_ctrl_tl_req_o           (                     ),
+    .host_ctrl_tl_rsp_i           ( '0                  ),
     .adc_req_o                    ( adc_req             ),
     .adc_rsp_i                    ( adc_rsp             ),
     .ast_edn_req_i                ( ast_edn_edn_req     ),
@@ -592,16 +594,16 @@ module chip_earlgrey_verilator (
     .scanmode_i                   ( scanmode                   )
   );
 
-  host_device u_host_device (
-    .clk_i(clk_i),
-    .rst_ni(por_n[rstmgr_pkg::Domain0Sel]),
-    // Host interfaces
-    .host_ctrl_tl_req_i(
-      host_ctrl_req
-    ),
-    .host_ctrl_tl_rsp_o(
-      host_ctrl_rsp
-    )
-  );
+  // host_device u_host_device (
+  //   .clk_i(clk_i),
+  //   .rst_ni(por_n[rstmgr_pkg::Domain0Sel]),
+  //   // Host interfaces
+  //   .host_ctrl_tl_req_i(
+  //     host_ctrl_req
+  //   ),
+  //   .host_ctrl_tl_rsp_o(
+  //     host_ctrl_rsp
+  //   )
+  // );
 
 endmodule : chip_earlgrey_verilator

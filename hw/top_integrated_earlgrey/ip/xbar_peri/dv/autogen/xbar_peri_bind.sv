@@ -182,5 +182,11 @@ module xbar_peri_bind;
     .h2d    (tl_host_ctrl_o),
     .d2h    (tl_host_ctrl_i)
   );
+  bind xbar_peri tlul_assert #(.EndpointType("Host")) tlul_assert_device_mailbox (
+    .clk_i  (clk_peri_i),
+    .rst_ni (rst_peri_ni),
+    .h2d    (tl_mailbox_o),
+    .d2h    (tl_mailbox_i)
+  );
 `endif
 endmodule

@@ -16,7 +16,7 @@
  * `top_integrated_earlgrey_alert_peripheral_t`.
  */
 const top_integrated_earlgrey_alert_peripheral_t
-    top_integrated_earlgrey_alert_for_peripheral[65] = {
+    top_integrated_earlgrey_alert_for_peripheral[66] = {
   [kTopIntegratedEarlgreyAlertIdUart0FatalFault] = kTopIntegratedEarlgreyAlertPeripheralUart0,
   [kTopIntegratedEarlgreyAlertIdUart1FatalFault] = kTopIntegratedEarlgreyAlertPeripheralUart1,
   [kTopIntegratedEarlgreyAlertIdUart2FatalFault] = kTopIntegratedEarlgreyAlertPeripheralUart2,
@@ -49,6 +49,7 @@ const top_integrated_earlgrey_alert_peripheral_t
   [kTopIntegratedEarlgreyAlertIdPwmAonFatalFault] = kTopIntegratedEarlgreyAlertPeripheralPwmAon,
   [kTopIntegratedEarlgreyAlertIdPinmuxAonFatalFault] = kTopIntegratedEarlgreyAlertPeripheralPinmuxAon,
   [kTopIntegratedEarlgreyAlertIdAonTimerAonFatalFault] = kTopIntegratedEarlgreyAlertPeripheralAonTimerAon,
+  [kTopIntegratedEarlgreyAlertIdMailboxFatalFault] = kTopIntegratedEarlgreyAlertPeripheralMailbox,
   [kTopIntegratedEarlgreyAlertIdSensorCtrlAonRecovAlert] = kTopIntegratedEarlgreyAlertPeripheralSensorCtrlAon,
   [kTopIntegratedEarlgreyAlertIdSensorCtrlAonFatalAlert] = kTopIntegratedEarlgreyAlertPeripheralSensorCtrlAon,
   [kTopIntegratedEarlgreyAlertIdSramCtrlRetAonFatalError] = kTopIntegratedEarlgreyAlertPeripheralSramCtrlRetAon,
@@ -91,7 +92,7 @@ const top_integrated_earlgrey_alert_peripheral_t
  * `top_integrated_earlgrey_plic_peripheral_t`.
  */
 const top_integrated_earlgrey_plic_peripheral_t
-    top_integrated_earlgrey_plic_interrupt_for_peripheral[186] = {
+    top_integrated_earlgrey_plic_interrupt_for_peripheral[188] = {
   [kTopIntegratedEarlgreyPlicIrqIdNone] = kTopIntegratedEarlgreyPlicPeripheralUnknown,
   [kTopIntegratedEarlgreyPlicIrqIdUart0TxWatermark] = kTopIntegratedEarlgreyPlicPeripheralUart0,
   [kTopIntegratedEarlgreyPlicIrqIdUart0RxWatermark] = kTopIntegratedEarlgreyPlicPeripheralUart0,
@@ -250,6 +251,8 @@ const top_integrated_earlgrey_plic_peripheral_t
   [kTopIntegratedEarlgreyPlicIrqIdAdcCtrlAonMatchPending] = kTopIntegratedEarlgreyPlicPeripheralAdcCtrlAon,
   [kTopIntegratedEarlgreyPlicIrqIdAonTimerAonWkupTimerExpired] = kTopIntegratedEarlgreyPlicPeripheralAonTimerAon,
   [kTopIntegratedEarlgreyPlicIrqIdAonTimerAonWdogTimerBark] = kTopIntegratedEarlgreyPlicPeripheralAonTimerAon,
+  [kTopIntegratedEarlgreyPlicIrqIdMailboxDoorbell] = kTopIntegratedEarlgreyPlicPeripheralMailbox,
+  [kTopIntegratedEarlgreyPlicIrqIdMailboxCompletion] = kTopIntegratedEarlgreyPlicPeripheralMailbox,
   [kTopIntegratedEarlgreyPlicIrqIdSensorCtrlAonIoStatusChange] = kTopIntegratedEarlgreyPlicPeripheralSensorCtrlAon,
   [kTopIntegratedEarlgreyPlicIrqIdSensorCtrlAonInitStatusChange] = kTopIntegratedEarlgreyPlicPeripheralSensorCtrlAon,
   [kTopIntegratedEarlgreyPlicIrqIdFlashCtrlProgEmpty] = kTopIntegratedEarlgreyPlicPeripheralFlashCtrl,

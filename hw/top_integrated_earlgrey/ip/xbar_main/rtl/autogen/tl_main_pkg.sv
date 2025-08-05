@@ -11,7 +11,7 @@ package tl_main_pkg;
   localparam logic [31:0] ADDR_SPACE_ROM_CTRL__ROM        = 32'h 00008000;
   localparam logic [31:0] ADDR_SPACE_ROM_CTRL__REGS       = 32'h 411e0000;
   localparam logic [2:0][31:0] ADDR_SPACE_PERI                 = {
-    32'h 50000000,
+    32'h 60000000,
     32'h 40400000,
     32'h 40000000
   };
@@ -40,7 +40,7 @@ package tl_main_pkg;
   localparam logic [31:0] ADDR_MASK_ROM_CTRL__ROM        = 32'h 00007fff;
   localparam logic [31:0] ADDR_MASK_ROM_CTRL__REGS       = 32'h 0000007f;
   localparam logic [2:0][31:0] ADDR_MASK_PERI                 = {
-    32'h 000003ff,
+    32'h 0fffffff,
     32'h 003fffff,
     32'h 001fffff
   };

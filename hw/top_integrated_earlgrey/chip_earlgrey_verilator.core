@@ -18,7 +18,7 @@ filesets:
       - lowrisc:prim:prim_legacy_pkg
       - lowrisc:prim_generic:all
       - lowrisc:prim_generic:flash
-      - lowrisc:systems:top_integrated_host_device
+#      - lowrisc:systems:top_integrated_host_device
     files:
       - rtl/chip_earlgrey_verilator.sv: { file_type: systemVerilogSource }
 

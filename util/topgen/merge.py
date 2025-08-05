@@ -400,8 +400,11 @@ def xbar_adddevice(top: ConfigT, name_to_block: IpBlocksT, xbar: ConfigT,
             log.error("device %s shouldn't be host type" % device)
 
             return
+        # case 3: device has node["stub"] to True
+        if node["stub"]:
+            return
 
-        # case 3: not defined
+        # case 4: not defined
         # Crossbar check
         log.error("Device %s doesn't exist in 'module', 'memory', predefined, "
                   "or as a node object" % device)

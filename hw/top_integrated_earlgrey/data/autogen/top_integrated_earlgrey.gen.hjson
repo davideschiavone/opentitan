@@ -607,6 +607,7 @@
             aon_timer_aon
             ast
             host_ctrl
+            mailbox
             sensor_ctrl
             sram_ctrl_ret_aon
             flash_ctrl.core
@@ -5585,6 +5586,57 @@
         null:
         {
           hart: 0x40470000
+        }
+      }
+      generate_dif: true
+    }
+    {
+      name: mailbox
+      type: mailbox
+      clock_srcs:
+      {
+        clk_i: io_div4
+      }
+      clock_group: peri
+      reset_connections:
+      {
+        rst_ni:
+        {
+          name: lc_io_div4
+          domain: Aon
+        }
+      }
+      domain:
+      [
+        Aon
+      ]
+      clock_connections:
+      {
+        clk_i: clkmgr_aon_clocks.clk_io_div4_peri
+      }
+      param_decl: {}
+      param_list: []
+      inter_signal_list:
+      [
+        {
+          name: tl
+          struct: tl
+          package: tlul_pkg
+          type: req_rsp
+          act: rsp
+          width: 1
+          inst_name: mailbox
+          default: ""
+          end_idx: -1
+          top_signame: mailbox_tl
+          index: -1
+        }
+      ]
+      base_addrs:
+      {
+        null:
+        {
+          hart: 0x40480400
         }
       }
       generate_dif: true
@@ -11012,6 +11064,10 @@
       [
         peri.tl_adc_ctrl_aon
       ]
+      mailbox.tl:
+      [
+        peri.tl_mailbox
+      ]
     }
     top:
     [
@@ -11366,9 +11422,9 @@
             {
               base_addrs:
               {
-                hart: 0x50000000
+                hart: 0x60000000
               }
-              size_byte: 0x400
+              size_byte: 0x10000000
             }
           ]
         }
@@ -12178,6 +12234,7 @@
           alert_handler
           ast
           host_ctrl
+          mailbox
           sram_ctrl_ret_aon.ram
           sram_ctrl_ret_aon.regs
           aon_timer_aon
@@ -12776,16 +12833,38 @@
           pipeline: false
           xbar: false
           stub: true
+          merge_addr: false
           addr_range:
           [
             {
               base_addrs:
               {
-                hart: 0x50000000
+                hart: 0x60000000
               }
-              size_byte: 0x400
+              size_byte: 0x10000000
             }
           ]
+        }
+        {
+          name: mailbox
+          type: device
+          clock: clk_peri_i
+          reset: rst_peri_ni
+          pipeline: false
+          xbar: false
+          inst_type: mailbox
+          addr_range:
+          [
+            {
+              base_addrs:
+              {
+                hart: 0x40480400
+              }
+              size_byte: 0x40
+            }
+          ]
+          stub: false
+          req_fifo_pass: true
         }
       ]
       addr_spaces:
@@ -13146,6 +13225,18 @@
           external: true
           top_signame: host_ctrl_tl
           conn_type: false
+          index: -1
+        }
+        {
+          name: tl_mailbox
+          struct: tl
+          package: tlul_pkg
+          type: req_rsp
+          act: req
+          inst_name: peri
+          width: 1
+          default: ""
+          top_signame: mailbox_tl
           index: -1
         }
       ]
@@ -16137,6 +16228,16 @@
       lpg_idx: 14
     }
     {
+      name: mailbox_fatal_fault
+      width: 1
+      type: alert
+      async: "1"
+      module_name: mailbox
+      desc: mailbox fatal_fault alert
+      lpg_name: peri_lc_io_div4_Aon
+      lpg_idx: 13
+    }
+    {
       name: sensor_ctrl_aon_recov_alert
       width: 1
       type: alert
@@ -17983,6 +18084,30 @@
       outgoing: false
     }
     {
+      name: mailbox_doorbell
+      width: 1
+      type: interrupt
+      module_name: mailbox
+      desc: mailbox doorbell interrupt
+      intr_type: IntrType.Status
+      default_val: false
+      incoming: false
+      plic: rv_plic
+      outgoing: false
+    }
+    {
+      name: mailbox_completion
+      width: 1
+      type: interrupt
+      module_name: mailbox
+      desc: mailbox completion interrupt
+      intr_type: IntrType.Status
+      default_val: false
+      incoming: false
+      plic: rv_plic
+      outgoing: false
+    }
+    {
       name: sensor_ctrl_aon_io_status_change
       width: 1
       type: interrupt
@@ -18346,6 +18471,7 @@
     pwm_aon
     pinmux_aon
     aon_timer_aon
+    mailbox
     sensor_ctrl_aon
     sram_ctrl_ret_aon
     flash_ctrl
@@ -18386,6 +18512,7 @@
     sysrst_ctrl_aon
     adc_ctrl_aon
     aon_timer_aon
+    mailbox
     sensor_ctrl_aon
     flash_ctrl
     hmac
@@ -22245,6 +22372,19 @@
         type: req_rsp
         act: rsp
         width: 1
+        inst_name: mailbox
+        default: ""
+        end_idx: -1
+        top_signame: mailbox_tl
+        index: -1
+      }
+      {
+        name: tl
+        struct: tl
+        package: tlul_pkg
+        type: req_rsp
+        act: rsp
+        width: 1
         inst_name: ast
         index: -1
       }
@@ -25302,6 +25442,18 @@
         external: true
         top_signame: host_ctrl_tl
         conn_type: false
+        index: -1
+      }
+      {
+        name: tl_mailbox
+        struct: tl
+        package: tlul_pkg
+        type: req_rsp
+        act: req
+        inst_name: peri
+        width: 1
+        default: ""
+        top_signame: mailbox_tl
         index: -1
       }
       {
@@ -28441,6 +28593,28 @@
         package: tlul_pkg
         struct: tl_d2h
         signame: adc_ctrl_aon_tl_rsp
+        width: 1
+        type: req_rsp
+        end_idx: -1
+        act: rsp
+        suffix: rsp
+        default: ""
+      }
+      {
+        package: tlul_pkg
+        struct: tl_h2d
+        signame: mailbox_tl_req
+        width: 1
+        type: req_rsp
+        end_idx: -1
+        act: rsp
+        suffix: req
+        default: tlul_pkg::TL_H2D_DEFAULT
+      }
+      {
+        package: tlul_pkg
+        struct: tl_d2h
+        signame: mailbox_tl_rsp
         width: 1
         type: req_rsp
         end_idx: -1

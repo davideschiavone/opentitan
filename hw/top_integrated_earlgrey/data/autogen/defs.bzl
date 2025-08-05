@@ -23,6 +23,7 @@ load("//hw/ip/i2c:defs.bzl", "I2C")
 load("//hw/ip/keymgr:defs.bzl", "KEYMGR")
 load("//hw/ip/kmac:defs.bzl", "KMAC")
 load("//hw/ip/lc_ctrl:defs.bzl", "LC_CTRL")
+load("//hw/ip/mailbox:defs.bzl", "MAILBOX")
 load("//hw/ip/otbn:defs.bzl", "OTBN")
 load("//hw/top_integrated_earlgrey/ip_autogen/otp_ctrl:defs.bzl", "OTP_CTRL")
 load("//hw/ip/otp_macro:defs.bzl", "OTP_MACRO")
@@ -61,6 +62,7 @@ INTEGRATED_EARLGREY_IPS = [
     KEYMGR,
     KMAC,
     LC_CTRL,
+    MAILBOX,
     OTBN,
     OTP_CTRL,
     OTP_MACRO,
