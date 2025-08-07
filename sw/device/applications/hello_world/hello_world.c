@@ -26,6 +26,10 @@ int _ottf_main(int argc, char **argv) {
 
   for(int i=0;i<100;i++) host_device[i] = (uint32_t)(i*2);
 
+  volatile uint32_t *mailbox_payload = (volatile uint32_t *)0x4048042C;
+
+  while(*mailbox_payload != 0xDEADBEEF);
+
   volatile uint32_t *reg = (volatile uint32_t *)0x411f0080;
   *reg = 0x900d;  // ends application and test passes
 

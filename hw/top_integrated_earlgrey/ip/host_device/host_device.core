@@ -9,6 +9,7 @@ filesets:
   files_rtl:
     depend:
       - lowrisc:ip:tlul:0.1
+      - lowrisc:top_integrated_earlgrey:xbar_peri:0.1
     files:
       - rtl/host_device.sv
     file_type: systemVerilogSource

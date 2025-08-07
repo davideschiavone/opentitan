@@ -271,6 +271,9 @@ module chip_earlgrey_verilator (
   tlul_pkg::tl_h2d_t host_ctrl_req;
   tlul_pkg::tl_d2h_t host_ctrl_rsp;
 
+  tlul_pkg::tl_h2d_t host_mailbox_tl_req;
+  tlul_pkg::tl_d2h_t host_mailbox_tl_rsp;
+
   assign ast_base_pwr.main_pok = ast_pwst.main_pok;
 
   // synchronization clocks / rests
@@ -524,6 +527,8 @@ module chip_earlgrey_verilator (
     .ast_tl_rsp_i                 ( ast_base_bus        ),
     .host_ctrl_tl_req_o           ( host_ctrl_req       ),
     .host_ctrl_tl_rsp_i           ( host_ctrl_rsp       ),
+    .host_mailbox_tl_req_i        ( host_mailbox_tl_req ),
+    .host_mailbox_tl_rsp_o        ( host_mailbox_tl_rsp ),
     .adc_req_o                    ( adc_req             ),
     .adc_rsp_i                    ( adc_rsp             ),
     .ast_edn_req_i                ( ast_edn_edn_req     ),
@@ -601,6 +606,12 @@ module chip_earlgrey_verilator (
     ),
     .host_ctrl_tl_rsp_o(
       host_ctrl_rsp
+    ),
+    .host_mailbox_tl_req_o(
+      host_mailbox_tl_req
+    ),
+    .host_mailbox_tl_rsp_i(
+      host_mailbox_tl_rsp
     )
   );
 

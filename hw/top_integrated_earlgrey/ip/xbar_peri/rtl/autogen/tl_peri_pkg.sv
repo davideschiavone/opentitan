@@ -66,7 +66,7 @@ package tl_peri_pkg;
   localparam logic [31:0] ADDR_MASK_HOST_CTRL               = 32'h 0fffffff;
   localparam logic [31:0] ADDR_MASK_MAILBOX                 = 32'h 0000003f;
 
-  localparam int N_HOST   = 1;
+  localparam int N_HOST   = 2;
   localparam int N_DEVICE = 29;
 
   typedef enum int {
@@ -102,7 +102,8 @@ package tl_peri_pkg;
   } tl_device_e;
 
   typedef enum int {
-    TlMain = 0
+    TlMain = 0,
+    TlHostMailbox = 1
   } tl_host_e;
 
 endpackage

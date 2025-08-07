@@ -12,6 +12,12 @@ module xbar_peri_bind;
     .h2d    (tl_main_i),
     .d2h    (tl_main_o)
   );
+  bind xbar_peri tlul_assert #(.EndpointType("Device")) tlul_assert_host_host_mailbox (
+    .clk_i  (clk_peri_i),
+    .rst_ni (rst_peri_ni),
+    .h2d    (tl_host_mailbox_i),
+    .d2h    (tl_host_mailbox_o)
+  );
 
   // Device interfaces
   bind xbar_peri tlul_assert #(.EndpointType("Host")) tlul_assert_device_uart0 (

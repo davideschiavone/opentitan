@@ -64,6 +64,10 @@
       sysrst_ctrl_aon
       pwm_aon
     ]
+    host_mailbox:
+    [
+      mailbox
+    ]
   }
   nodes:
   [
@@ -75,6 +79,19 @@
       reset: rst_peri_ni
       xbar: true
       pipeline: false
+      stub: false
+      inst_type: ""
+      req_fifo_pass: true
+      rsp_fifo_pass: true
+    }
+    {
+      name: host_mailbox
+      type: host
+      addr_space: hart
+      clock: clk_peri_i
+      reset: rst_peri_ni
+      pipeline: false
+      xbar: false
       stub: false
       inst_type: ""
       req_fifo_pass: true
@@ -655,7 +672,6 @@
       pipeline: false
       xbar: false
       stub: true
-      merge_addr: false
       addr_range:
       [
         {
@@ -707,6 +723,20 @@
       width: 1
       default: ""
       top_signame: main_tl_peri
+      index: -1
+    }
+    {
+      name: tl_host_mailbox
+      struct: tl
+      package: tlul_pkg
+      type: req_rsp
+      act: rsp
+      inst_name: peri
+      width: 1
+      default: ""
+      external: true
+      top_signame: host_mailbox_tl
+      conn_type: false
       index: -1
     }
     {

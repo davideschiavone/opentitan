@@ -269,7 +269,8 @@
             "edn1",
             "sram_ctrl_main.regs"
             "rom_ctrl.regs",
-            "rv_core_ibex"
+            "rv_core_ibex",
+            "host_mailbox"
           ]
         }
       ]
@@ -1411,6 +1412,7 @@
         'entropy_src.rng_fips'               : 'es_rng_fips',
         'peri.tl_ast'                        : 'ast_tl',
         'peri.tl_host_ctrl'                  : 'host_ctrl_tl',
+        'peri.tl_host_mailbox'               : 'host_mailbox_tl',
         'pinmux_aon.dft_strap_test'          : 'dft_strap_test',
         'pinmux_aon.dft_hold_tap_sel'        : 'dft_hold_tap_sel',
         'pinmux_aon.usb_dppullup_en'         : 'usb_dp_pullup_en',

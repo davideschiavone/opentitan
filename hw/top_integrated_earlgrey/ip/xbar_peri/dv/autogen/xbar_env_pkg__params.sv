@@ -127,4 +127,7 @@ tl_host_t xbar_hosts[$] = '{
         "adc_ctrl_aon",
         "sysrst_ctrl_aon",
         "pwm_aon"}}
+    ,
+    '{"host_mailbox", 1, '{
+        "mailbox"}}
 };

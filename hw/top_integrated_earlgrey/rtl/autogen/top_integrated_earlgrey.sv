@@ -203,6 +203,8 @@ module top_integrated_earlgrey #(
   input  tlul_pkg::tl_d2h_t       ast_tl_rsp_i,
   output tlul_pkg::tl_h2d_t       host_ctrl_tl_req_o,
   input  tlul_pkg::tl_d2h_t       host_ctrl_tl_rsp_i,
+  input  tlul_pkg::tl_h2d_t       host_mailbox_tl_req_i,
+  output tlul_pkg::tl_d2h_t       host_mailbox_tl_rsp_o,
   output pinmux_pkg::dft_strap_test_req_t       dft_strap_test_o,
   input  logic       dft_hold_tap_sel_i,
   output logic       usb_dp_pullup_en_o,
@@ -3219,6 +3221,10 @@ module top_integrated_earlgrey #(
     // port: tl_main
     .tl_main_i(main_tl_peri_req),
     .tl_main_o(main_tl_peri_rsp),
+
+    // port: tl_host_mailbox
+    .tl_host_mailbox_i(host_mailbox_tl_req_i),
+    .tl_host_mailbox_o(host_mailbox_tl_rsp_o),
 
     // port: tl_uart0
     .tl_uart0_o(uart0_tl_req),

@@ -16,7 +16,15 @@
       reset: "rst_peri_ni",
       xbar:  "true",
       pipeline: false
-
+    },
+    { name:      "host_mailbox",
+      type:      "host",
+      addr_space: "hart",
+      clock:     "clk_peri_i",
+      reset:     "rst_peri_ni",
+      pipeline:  false,
+      xbar:      false,
+      stub:      true,
     },
     { name:      "uart0",
       type:      "device",
@@ -187,7 +195,6 @@
       pipeline:  false,
       xbar:      false,
       stub:      true,
-      merge_addr: false,
       addr_range: [
         {
           "base_addrs": {
@@ -213,6 +220,9 @@
       "otp_ctrl.core", "otp_macro.prim", "lc_ctrl.regs", "sensor_ctrl_aon",
       "alert_handler", "ast", "host_ctrl", "mailbox", "sram_ctrl_ret_aon.ram", "sram_ctrl_ret_aon.regs",
       "aon_timer_aon", "adc_ctrl_aon", "sysrst_ctrl_aon", "pwm_aon"
+    ],
+    host_mailbox:  [
+      "mailbox"
     ],
   },
 }

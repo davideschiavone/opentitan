@@ -15,6 +15,7 @@ initial force dut.rst_peri_ni = rst_n;
 
 // Host TileLink interface connections
 `CONNECT_TL_HOST_IF(main, dut, clk_peri_i, rst_n)
+`CONNECT_TL_HOST_IF(host_mailbox, dut, clk_peri_i, rst_n)
 
 // Device TileLink interface connections
 `CONNECT_TL_DEVICE_IF(uart0, dut, clk_peri_i, rst_n)
