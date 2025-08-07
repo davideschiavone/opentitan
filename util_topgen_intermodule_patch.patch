@@ -1,0 +1,14 @@
+diff --git a/util/topgen/intermodule.py b/util/topgen/intermodule.py
+index 3e4f1a8268..39593e6004 100644
+--- a/util/topgen/intermodule.py
++++ b/util/topgen/intermodule.py
+@@ -702,7 +702,8 @@ def find_otherside_modules(topcfg: OrderedDict, m,
+     special_inst_names = {
+         ('peri', 'tl_ast'): ('ast', 'tl'),
+         ('dbg', 'tl_dbg'): ('dbg', 'tl'),
+-        ('mbx', 'tl_mbx'): ('mbx', 'tl')
++        ('mbx', 'tl_mbx'): ('mbx', 'tl'),
++        ('peri', 'tl_host_ctrl'): ('host_ctrl', 'tl'),
+     }
+     special_result = special_inst_names.get((m, s))
+     if special_result is not None:

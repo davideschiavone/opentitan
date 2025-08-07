@@ -100,10 +100,20 @@ fusesoc_build(
     ],
     data = ["//hw/ip/otbn:rtl_files"],
     make_options = ":make_options",
-    output_groups = {
-        "binary": ["lowrisc_dv_top_earlgrey_chip_verilator_sim_0.1/sim-verilator/Vchip_sim_tb"],
-    },
-    systems = ["lowrisc:dv:chip_verilator_sim"],
+    output_groups = select({
+        ":use_top_integrated_earlgrey": {
+            "binary": ["lowrisc_dv_top_integrated_earlgrey_chip_verilator_sim_0.1/sim-verilator/Vchip_sim_tb"],
+        },
+        "//conditions:default": {
+            "binary": ["lowrisc_dv_top_earlgrey_chip_verilator_sim_0.1/sim-verilator/Vchip_sim_tb"],
+        },
+    }),
+
+    systems = select({
+        ":use_top_integrated_earlgrey": ["lowrisc:dv:chip_integrated_earlgrey_verilator_sim"],
+        "//conditions:default": ["lowrisc:dv:chip_verilator_sim"],
+    }),
+
     tags = [
         "manual",
         "verilator",
@@ -164,22 +174,38 @@ genrule(
 # relationships between verilog components.
 filegroup(
     name = "rtl_files",
-    srcs = glob(
-        ["**"],
-        # NOTE(lowRISC/opentitan#15882): verilator does not work with foundry repo present.
-        # Exclude it and DV files since we don't need it anyway.
-        exclude = [
-            "foundry/**",
-            "**/dv/**",
-            "doc/**",
-        ],
-    ) + [
-        # dv_macros are needed by Ibex, so include this back in.
-        "//hw/dv/sv:dv_macros",
-        "//hw/ip:rtl_files",
-        "//hw/top_earlgrey:rtl_files",
-    ],
+    srcs = (
+        glob(
+            ["**"],
+            # NOTE(lowRISC/opentitan#15882): verilator does not work with foundry repo present.
+            # Exclude it and DV files since we don't need it anyway.
+            exclude = [
+                "foundry/**",
+                "**/dv/**",
+                "doc/**",
+            ],
+        )
+        + [
+            # dv_macros are needed by Ibex, so include this back in.
+            "//hw/dv/sv:dv_macros",
+            "//hw/ip:rtl_files",
+        ]
+        + select({
+            ":use_top_integrated_earlgrey": ["//hw/top_integrated_earlgrey:rtl_files"],
+            "//conditions:default": ["//hw/top_earlgrey:rtl_files"],
+        })
+    ),
     visibility = ["//visibility:public"],
+)
+
+config_setting(
+    name = "use_top_integrated_earlgrey",
+    define_values = {"USE_INTEGRATED_EARLGRAY": "1"},
+)
+
+config_setting(
+    name = "use_top_earlgrey",
+    define_values = {"USE_INTEGRATED_EARLGRAY": "0"},
 )
 
 pkg_files(

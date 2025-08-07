@@ -25,6 +25,7 @@ filegroup(
         "//hw/ip/keymgr:rtl_files",
         "//hw/ip/kmac:rtl_files",
         "//hw/ip/lc_ctrl:rtl_files",
+        "//hw/ip/mailbox:rtl_files",
         "//hw/ip/otbn:rtl_files",
         "//hw/ip/otp_ctrl:rtl_files",
         "//hw/ip/otp_macro:rtl_files",
