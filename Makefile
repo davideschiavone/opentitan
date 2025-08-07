@@ -1,11 +1,11 @@
 
 
+# Set default app name, can override with `make name=other_app`
+app_name ?= hello_world
+
 compile_device_app: test_rom otp_img
-	@if [ -z "$(name)" ]; then \
-		echo "Usage: make compile_device_app name=your_app"; \
-		exit 1; \
-	fi
-	./bazelisk.sh build --subcommands --sandbox_debug --verbose_failures //sw/device/applications/$(name):$(name)
+	@echo "Compiling device app: $(app_name)"
+	./bazelisk.sh build --subcommands --sandbox_debug --verbose_failures //sw/device/applications/$(app_name):$(app_name) --define USE_INTEGRATED_EARLGRAY=1 --explain=bazel_app_explain.txt --show_result=10000 2>&1 | tee bazel_app_build.log
 
 .PHONY: compile_verilator
 compile_verilator:
@@ -13,13 +13,9 @@ compile_verilator:
 
 
 run_verilator:
-	@if [ -z "$(name)" ]; then \
-		echo "Usage: make run_verilator name=your_app"; \
-		exit 1; \
-	fi; \
 	VERILATOR_BINARY=$$(./bazelisk.sh cquery --output=files //hw:verilator_real --define USE_INTEGRATED_EARLGRAY=1 | grep 'Vchip_sim_tb'$$); \
 	echo "Verilator binary is $$VERILATOR_BINARY"; \
-	APP_BINARY=$$(./bazelisk.sh cquery --output=files //sw/device/applications/$(name) | grep 'sim_verilator\.64\.vmem$$'); \
+	APP_BINARY=$$(./bazelisk.sh cquery --output=files //sw/device/applications/$(app_name)| grep 'sim_verilator\.64\.vmem$$'); \
 	echo "App is $$APP_BINARY"; \
 	ROM_BINARY=$$(./bazelisk.sh cquery --output=files //sw/device/lib/testing/test_rom | grep 'sim_verilator\.39\.scr\.vmem$$'); \
 	echo "Test ROM is $$ROM_BINARY"; \

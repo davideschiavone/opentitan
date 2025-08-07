@@ -9,7 +9,7 @@ module host_device import tlul_pkg::*; (
   output tlul_pkg::tl_d2h_t host_ctrl_tl_rsp_o
 );
 
-  localparam int AW = 1;
+  localparam int AW = 32;
   localparam int DW = 32;
   localparam int DBW = DW/8;                    // Byte Width
 
@@ -22,27 +22,22 @@ module host_device import tlul_pkg::*; (
   logic [DW-1:0]  reg_rdata;
   logic           reg_error;
 
-  logic          addrmiss;
+  // outgoing integrity generation
+  tlul_pkg::tl_d2h_t tl_o_pre;
 
-  logic [DW-1:0] reg_rdata_next;
-
-  logic [DW-1:0] reg0, reg1;
-
-  always_ff @(posedge clk_i or negedge rst_ni) begin
-    if (!rst_ni) begin
-      reg0 <= '0;
-      reg1 <= '0;
-    end else begin
-      if (reg_we && addr_hit[0]) begin
-        reg0 <= reg_wdata;
-      end
-      if (reg_we && addr_hit[1]) begin
-        reg1 <= reg_wdata;
-      end
-    end
-  end
-
-
+  // tlul_fifo_async #(
+  //   .ReqDepth        (1),
+  //   .RspDepth        (1)
+  // ) u_asf_35 (
+  //   .clk_h_i      (clk_main_i),
+  //   .rst_h_ni     (rst_main_ni),
+  //   .clk_d_i      (clk_fixed_i),
+  //   .rst_d_ni     (rst_fixed_ni),
+  //   .tl_h_i       (tl_asf_35_us_h2d),
+  //   .tl_h_o       (tl_asf_35_us_d2h),
+  //   .tl_d_o       (tl_asf_35_ds_h2d),
+  //   .tl_d_i       (tl_asf_35_ds_d2h)
+  // );
   tlul_adapter_reg #(
     .RegAw(AW),
     .RegDw(DW),
@@ -52,46 +47,57 @@ module host_device import tlul_pkg::*; (
     .rst_ni,
 
     .tl_i (host_ctrl_tl_req_i),
-    .tl_o (host_ctrl_tl_rsp_o),
+    .tl_o (tl_o_pre),
+
+    .en_ifetch_i(prim_mubi_pkg::MuBi4False),
+    .intg_error_o(),
 
     .we_o    (reg_we),
     .re_o    (reg_re),
     .addr_o  (reg_addr),
     .wdata_o (reg_wdata),
     .be_o    (reg_be),
+    .busy_i  (1'b0),
     .rdata_i (reg_rdata),
     .error_i (reg_error)
   );
 
-  assign reg_rdata = reg_rdata_next ;
-  assign reg_error = addrmiss;
 
-  // Read data return
-  always_comb begin
-    reg_rdata_next = '0;
-    unique case (1'b1)
-      addr_hit[0]: begin
-        reg_rdata_next[0] = reg0;
-      end
+  tlul_rsp_intg_gen #(
+    .EnableRspIntgGen(1),
+    .EnableDataIntgGen(1)
+  ) u_rsp_intg_gen (
+    .tl_i(tl_o_pre),
+    .tl_o(host_ctrl_tl_rsp_o)
+  );
 
-      addr_hit[1]: begin
-        reg_rdata_next[0] = reg1;
-      end
+  integer fp;
 
-      default: begin
-        reg_rdata_next = '0;
-      end
-    endcase
+  initial begin
+    fp = $fopen("host_device.log", "w");
+    if (fp == 0) begin
+      $fatal("Failed to open fp");
+    end
   end
 
-  logic [1:0] addr_hit;
-  always_comb begin
-    addr_hit = '0;
-    addr_hit[ 0] = (reg_addr == 0);
-    addr_hit[ 1] = (reg_addr == 1);
+  always_ff @(posedge clk_i or negedge rst_ni) begin
+    if (!rst_ni) begin
+      reg_rdata <= '0;
+      reg_error <= 1'b0;
+    end else begin
+      if (reg_re) begin
+        // Read operation
+        $fwrite(fp, "Read: addr=0x%08x\n", reg_addr);
+      end else if (reg_we) begin
+        $fwrite(fp, "Write: addr=0x%08x, wdata=0x%08x\n", reg_addr, reg_wdata);
+      end
+      $fflush(fp); // Flush to ensure data is written
+    end
   end
 
-  assign addrmiss = (reg_re || reg_we) ? ~|addr_hit : 1'b0 ;
+  final begin
+    $fclose(fp);
+  end
 
 
 endmodule

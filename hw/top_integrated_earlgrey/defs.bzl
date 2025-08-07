@@ -4,12 +4,12 @@
 #
 
 load("//rules/opentitan:hw.bzl", "opentitan_top")
-load("//hw/top_integrated_earlgrey/data/autogen:defs.bzl", "EARLGREY_IPS")
+load("//hw/top_integrated_earlgrey/data/autogen:defs.bzl", "INTEGRATED_EARLGREY_IPS")
 
-EARLGREY = opentitan_top(
-    name = "earlgrey",
+INTEGRATED_EARLGREY = opentitan_top(
+    name = "integrated_earlgrey",
     hjson = "//hw/top_integrated_earlgrey/data/autogen:top_integrated_earlgrey.gen.hjson",
     top_lib = "//hw/top_integrated_earlgrey/sw/autogen:top_integrated_earlgrey",
     top_ld = "//hw/top_integrated_earlgrey/sw/autogen:top_integrated_earlgrey_memory",
-    ips = EARLGREY_IPS,
+    ips = INTEGRATED_EARLGREY_IPS,
 )

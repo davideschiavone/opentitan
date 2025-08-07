@@ -22,6 +22,10 @@ int _ottf_main(int argc, char **argv) {
 
   LOG_INFO("Hello, world!\n");
 
+  volatile uint32_t *host_device = (volatile uint32_t *)0x60000000;
+
+  for(int i=0;i<100;i++) host_device[i] = (uint32_t)(i*2);
+
   volatile uint32_t *reg = (volatile uint32_t *)0x411f0080;
   *reg = 0x900d;  // ends application and test passes
 

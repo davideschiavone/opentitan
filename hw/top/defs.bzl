@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 load("//rules/opentitan:hw.bzl", "get_ip_attr", "get_top_attr", "has_ip_attr", "has_top_attr")
 load("//hw/top_earlgrey:defs.bzl", "EARLGREY")
+load("//hw/top_integrated_earlgrey:defs.bzl", "INTEGRATED_EARLGREY")
 load("//hw/top_darjeeling:defs.bzl", "DARJEELING")
 load("//hw/top_englishbreakfast:defs.bzl", "ENGLISHBREAKFAST")
 
@@ -10,6 +11,7 @@ ALL_TOPS = [
     EARLGREY,
     DARJEELING,
     ENGLISHBREAKFAST,
+    INTEGRATED_EARLGREY
 ]
 
 ALL_TOP_NAMES = [
