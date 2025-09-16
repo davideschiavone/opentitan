@@ -16,7 +16,7 @@
 #include "rstmgr_regs.h"  // Generated.
 
 // These assertions are only defined for the Earl Grey chip.
-#if defined(OPENTITAN_IS_EARLGREY)
+#if defined(OPENTITAN_IS_EARLGREY) || defined(OPENTITAN_IS_VERBANO)
 // This macro simplifies the `static_assert` check to make sure that the
 // public reset info register bitfield matches register bits.
 #define RSTMGR_RESET_INFO_CHECK(pub_name, priv_name)         \

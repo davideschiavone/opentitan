@@ -14,7 +14,13 @@
 #include "sw/device/lib/testing/test_framework/check.h"
 #include "sw/device/lib/testing/test_framework/ottf_test_config.h"
 
+#if defined(OPENTITAN_IS_EARLGREY)
 #include "hw/top_earlgrey/sw/autogen/top_earlgrey.h"
+#elif defined(OPENTITAN_IS_VERBANO)
+#include "hw/top_verbano/sw/autogen/top_verbano.h"
+#else
+#error "Unsupported top"
+#endif
 
 OTTF_DEFINE_TEST_CONFIG();
 
@@ -22,6 +28,7 @@ static dif_gpio_t gpio;
 static dif_pinmux_t pinmux;
 static dif_uart_t uart;
 
+#if defined(OPENTITAN_IS_EARLGREY)
 static dif_pinmux_index_t leds[] = {
     kTopEarlgreyPinmuxMioOutIor10,
     kTopEarlgreyPinmuxMioOutIor11,
@@ -35,28 +42,64 @@ static dif_pinmux_index_t switches[] = {
     kTopEarlgreyPinmuxInselIob10,
     kTopEarlgreyPinmuxInselIor5,
 };
+#elif defined(OPENTITAN_IS_VERBANO)
+static dif_pinmux_index_t leds[] = {
+    kTopVerbanoPinmuxMioOutIor10,
+    kTopVerbanoPinmuxMioOutIor11,
+    kTopVerbanoPinmuxMioOutIor12,
+    kTopVerbanoPinmuxMioOutIor13,
+};
+static dif_pinmux_index_t switches[] = {
+    kTopVerbanoPinmuxInselIob6,
+    kTopVerbanoPinmuxInselIob9,
+    kTopVerbanoPinmuxInselIob10,
+    kTopVerbanoPinmuxInselIor5,
+};
+#endif
 
 void configure_pinmux(void) {
   pinmux_testutils_init(&pinmux);
   // Hook up some LEDs.
   for (size_t i = 0; i < ARRAYSIZE(leds); ++i) {
+    #if defined(OPENTITAN_IS_EARLGREY)
     dif_pinmux_index_t gpio = kTopEarlgreyPinmuxOutselGpioGpio0 + i;
     CHECK_DIF_OK(dif_pinmux_output_select(&pinmux, leds[i], gpio));
+    #elif defined(OPENTITAN_IS_VERBANO)
+    dif_pinmux_index_t gpio = kTopVerbanoPinmuxOutselGpioGpio0 + i;
+    CHECK_DIF_OK(dif_pinmux_output_select(&pinmux, leds[i], gpio));
+    #endif
   }
   // Hook up DIP switches.
   for (size_t i = 0; i < ARRAYSIZE(switches); ++i) {
+    #if defined(OPENTITAN_IS_EARLGREY)
     dif_pinmux_index_t gpio = kTopEarlgreyPinmuxPeripheralInGpioGpio8 + i;
     CHECK_DIF_OK(dif_pinmux_input_select(&pinmux, gpio, switches[i]));
+    #elif defined(OPENTITAN_IS_VERBANO)
+    dif_pinmux_index_t gpio = kTopVerbanoPinmuxPeripheralInGpioGpio8 + i;
+    CHECK_DIF_OK(dif_pinmux_input_select(&pinmux, gpio, switches[i]));
+    #endif
   }
 }
 
 void _ottf_main(void) {
+
+  #if defined(OPENTITAN_IS_EARLGREY)
   CHECK_DIF_OK(dif_pinmux_init(
       mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR), &pinmux));
   configure_pinmux();
 
   CHECK_DIF_OK(dif_uart_init(
       mmio_region_from_addr(TOP_EARLGREY_UART0_BASE_ADDR), &uart));
+  
+  #elif defined(OPENTITAN_IS_VERBANO)
+  CHECK_DIF_OK(dif_pinmux_init(
+      mmio_region_from_addr(TOP_VERBANO_PINMUX_AON_BASE_ADDR), &pinmux));
+  configure_pinmux(); 
+
+  CHECK_DIF_OK(dif_uart_init(
+      mmio_region_from_addr(TOP_VERBANO_UART0_BASE_ADDR), &uart));
+
+  #endif
 
   CHECK(kUartBaudrate <= UINT32_MAX, "kUartBaudrate must fit in uint32_t");
   CHECK(kClockFreqPeripheralHz <= UINT32_MAX,
@@ -72,8 +115,14 @@ void _ottf_main(void) {
              }));
   base_uart_stdout(&uart);
 
+  #if defined(OPENTITAN_IS_EARLGREY)
   CHECK_DIF_OK(
       dif_gpio_init(mmio_region_from_addr(TOP_EARLGREY_GPIO_BASE_ADDR), &gpio));
+  #elif defined(OPENTITAN_IS_VERBANO)
+  CHECK_DIF_OK(
+      dif_gpio_init(mmio_region_from_addr(TOP_VERBANO_GPIO_BASE_ADDR), &gpio));
+  #endif
+
   // Enable GPIO: 0-3 is output; 8-11 is input.
   CHECK_DIF_OK(dif_gpio_output_set_enabled_all(&gpio, 0xF));
 

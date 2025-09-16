@@ -76,10 +76,13 @@ cc_test(
     deps = [
         dual_cc_device_library_of(":alert"),
         "//hw/top:alert_handler_c_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:crc32",
         "@googletest//:gtest_main",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 opentitan_test(
@@ -97,11 +100,14 @@ opentitan_test(
         "//hw/top:flash_ctrl_c_regs",
         "//hw/top:otp_ctrl_c_regs",
         "//hw/top:rstmgr_c_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/testing:rstmgr_testutils",
         "//sw/device/lib/testing/test_framework:ottf_main",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 cc_library(
@@ -115,7 +121,6 @@ cc_library(
         "//hw/top:dt",
         "//hw/top:otp_ctrl_c_regs",
         "//hw/top:sensor_ctrl_c_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/arch:device",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/base:bitfield",
@@ -124,7 +129,11 @@ cc_library(
         "//sw/device/lib/base:memory",
         "//sw/device/lib/base:multibits",
         "//sw/device/silicon_creator/lib:error",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 cc_test(
@@ -219,12 +228,15 @@ cc_test(
     deps = [
         dual_cc_device_library_of(":hmac"),
         "//hw/top:hmac_c_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/silicon_creator/lib:error",
         "//sw/device/silicon_creator/testing:rom_test",
         "@googletest//:gtest_main",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 opentitan_test(
@@ -236,11 +248,14 @@ opentitan_test(
     ),
     deps = [
         ":hmac",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/testing:hexstr",
         "//sw/device/lib/testing/test_framework:ottf_main",
         "//sw/device/silicon_creator/lib:error",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 dual_cc_library(
@@ -332,7 +347,6 @@ opentitan_test(
         ":lifecycle",
         ":retention_sram",
         "//hw/top:kmac_c_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/dif:flash_ctrl",
         "//sw/device/lib/dif:otp_ctrl",
@@ -347,7 +361,11 @@ opentitan_test(
         "//sw/device/silicon_creator/lib:keymgr_binding",
         "//sw/device/silicon_creator/lib/base:chip",
         "//sw/device/silicon_creator/lib/base:sec_mmio",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 cc_library(
@@ -356,11 +374,14 @@ cc_library(
     hdrs = ["kmac.h"],
     deps = [
         "//hw/top:kmac_c_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/base:macros",
         "//sw/device/silicon_creator/lib:error",
-    ],
+    ]  + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 cc_test(
@@ -382,12 +403,15 @@ opentitan_test(
     ),
     deps = [
         ":kmac",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/testing:entropy_testutils",
         "//sw/device/lib/testing:hexstr",
         "//sw/device/lib/testing/test_framework:ottf_main",
         "//sw/device/silicon_creator/lib:error",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 dual_cc_library(
@@ -439,13 +463,16 @@ cc_library(
     deps = [
         "//hw/top:dt",
         "//hw/top:otbn_c_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/base:bitfield",
         "//sw/device/silicon_creator/lib:error",
         "//sw/device/silicon_creator/lib/base:sec_mmio",
         "//sw/device/silicon_creator/lib/drivers:rnd",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 cc_test(
@@ -506,14 +533,17 @@ cc_library(
         "//hw/top:gpio_c_regs",
         "//hw/top:otp_ctrl_c_regs",
         "//hw/top:pinmux_c_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/base:csr",
         "//sw/device/lib/base:macros",
         "//sw/device/lib/runtime:hart",
         "//sw/device/silicon_creator/lib/base:chip",
         "//sw/device/silicon_creator/lib/drivers:otp",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 cc_test(
@@ -521,7 +551,6 @@ cc_test(
     srcs = ["pinmux_unittest.cc"],
     deps = [
         ":pinmux",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/arch:sim_dv",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/base:csr",
@@ -529,7 +558,11 @@ cc_test(
         "//sw/device/silicon_creator/lib/base:chip",
         "//sw/device/silicon_creator/testing:rom_test",
         "@googletest//:gtest_main",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 cc_library(
@@ -554,11 +587,14 @@ cc_test(
     srcs = ["retention_sram_unittest.cc"],
     deps = [
         ":retention_sram",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/silicon_creator/testing:rom_test",
         "@googletest//:gtest_main",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 opentitan_test(
@@ -570,12 +606,15 @@ opentitan_test(
     ),
     deps = [
         ":retention_sram",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:macros",
         "//sw/device/lib/base:memory",
         "//sw/device/lib/testing/test_framework:ottf_main",
         "//sw/device/silicon_creator/lib:error",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 dual_cc_library(
@@ -599,9 +638,12 @@ dual_cc_library(
             "//hw/top:entropy_src_c_regs",
             "//hw/top:otp_ctrl_c_regs",
             "//hw/top:rv_core_ibex_c_regs",
-            "//hw/top_earlgrey/sw/autogen:top_earlgrey",
             "//sw/device/lib/base:crc32",
-        ],
+        ]  + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+             }),
         host = [
             "//sw/device/lib/base:global_mock",
             "//sw/device/silicon_creator/testing:rom_test",
@@ -623,14 +665,17 @@ cc_test(
         ":otp",
         "//hw/top:otp_ctrl_c_regs",
         "//hw/top:rv_core_ibex_c_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/arch:boot_stage_rom_ext",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/base:csr",
         "//sw/device/silicon_creator/lib/base:sec_mmio",
         "//sw/device/silicon_creator/testing:rom_test",
         "@googletest//:gtest_main",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 opentitan_test(
@@ -647,14 +692,17 @@ opentitan_test(
     deps = [
         ":otp",
         ":rnd",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:crc32",
         "//sw/device/lib/dif:entropy_src",
         "//sw/device/lib/testing:entropy_testutils",
         "//sw/device/lib/testing:rand_testutils",
         "//sw/device/lib/testing/test_framework:ottf_main",
         "//sw/device/silicon_creator/lib:error",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 dual_cc_library(
@@ -670,8 +718,11 @@ dual_cc_library(
     deps = dual_inputs(
         device = [
             "//hw/top:rstmgr_c_regs",
-            "//hw/top_earlgrey/sw/autogen:top_earlgrey",
-        ],
+        ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+        }),
         host = [
             "//sw/device/lib/base:global_mock",
             "//sw/device/silicon_creator/testing:rom_test",
@@ -742,12 +793,15 @@ cc_test(
     srcs = ["uart_unittest.cc"],
     deps = [
         ":uart",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/base:hardened",
         "//sw/device/silicon_creator/testing:rom_test",
         "@googletest//:gtest_main",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 opentitan_test(
@@ -756,10 +810,13 @@ opentitan_test(
     exec_env = EARLGREY_TEST_ENVS,
     deps = [
         ":uart",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/testing/test_framework:ottf_main",
         "//sw/device/silicon_creator/lib:error",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 cc_library(
@@ -772,12 +829,15 @@ cc_library(
         "//hw/top:dt",
         "//hw/top:otp_ctrl_c_regs",
         "//hw/top:pwrmgr_c_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/silicon_creator/lib/base:sec_mmio",
         "//sw/device/silicon_creator/lib/drivers:lifecycle",
         "//sw/device/silicon_creator/lib/drivers:otp",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 cc_test(
@@ -787,13 +847,16 @@ cc_test(
         ":watchdog",
         "//hw/top:aon_timer_c_regs",
         "//hw/top:otp_ctrl_c_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/silicon_creator/lib/base:sec_mmio",
         "//sw/device/silicon_creator/lib/drivers:otp",
         "//sw/device/silicon_creator/testing:rom_test",
         "@googletest//:gtest_main",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 opentitan_test(
@@ -854,12 +917,15 @@ cc_test(
     deps = [
         dual_cc_device_library_of(":spi_device"),
         "//hw/top:spi_device_c_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/silicon_creator/lib:error",
         "//sw/device/silicon_creator/testing:rom_test",
         "@googletest//:gtest_main",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 cc_library(
@@ -885,12 +951,15 @@ cc_library(
         "//hw/top:dt",
         "//hw/top:otp_ctrl_c_regs",
         "//hw/top:sensor_ctrl_c_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/base:bitfield",
         "//sw/device/lib/base:hardened",
         "//sw/device/silicon_creator/lib/base:sec_mmio",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 cc_test(
@@ -900,9 +969,12 @@ cc_test(
         ":sensor_ctrl",
         "//hw/top:otp_ctrl_c_regs",
         "//hw/top:sensor_ctrl_c_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "@googletest//:gtest_main",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 cc_library(
@@ -910,12 +982,15 @@ cc_library(
     srcs = ["epmp.c"],
     hdrs = ["epmp.h"],
     deps = [
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:bitfield",
         "//sw/device/lib/base:csr",
         "//sw/device/lib/base:hardened",
         "//sw/device/silicon_creator/lib:epmp_state",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 cc_test(

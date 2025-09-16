@@ -20,6 +20,7 @@ opentitan_binary(
         "//hw/top_earlgrey:fpga_cw310",
         "//hw/top_earlgrey:sim_dv",
         "//hw/top_earlgrey:sim_verilator",
+        "//hw/top_verbano:sim_verilator",
         # For some reason, this target makes englishbreakfast builds fail.
         #"//hw/top_earlgrey:silicon_owner_sival_rom_ext",
     ],
@@ -32,7 +33,6 @@ opentitan_binary(
 cc_library(
     name = "hello_world_lib",
     deps = [
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/examples:demos",
         "//sw/device/lib/arch:device",
         "//sw/device/lib/crt",
@@ -46,7 +46,11 @@ cc_library(
         "//sw/device/lib/testing/test_framework:check",
         "//sw/device/lib/testing/test_framework:ottf_start",
         "//sw/device/lib/testing/test_framework:ottf_test_config",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
 )
 
 pkg_files(
