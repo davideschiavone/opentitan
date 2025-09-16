@@ -84,7 +84,7 @@ typedef enum dif_rstmgr_reset_info {
    * escalation, watchdog or anything else.
    */
   kDifRstmgrResetInfoHwReq = (0x1f << 3),
-#if defined(OPENTITAN_IS_EARLGREY)
+#if defined(OPENTITAN_IS_EARLGREY) || defined(OPENTITAN_IS_VERBANO)
   /**
    * Device has reset due to the peripheral system reset control request.
    */

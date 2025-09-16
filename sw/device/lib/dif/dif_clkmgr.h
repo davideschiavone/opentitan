@@ -41,7 +41,7 @@ typedef uint32_t dif_clkmgr_gateable_clock_t;
 typedef uint32_t dif_clkmgr_hintable_clock_t;
 
 typedef enum dif_clkmgr_measure_clock {
-#if defined(OPENTITAN_IS_EARLGREY)
+#if defined(OPENTITAN_IS_EARLGREY) || defined(OPENTITAN_IS_VERBANO)
   /**
    * The Io clock.
    */
@@ -74,7 +74,7 @@ typedef enum dif_clkmgr_measure_clock {
 } dif_clkmgr_measure_clock_t;
 
 typedef enum dif_clkmgr_recov_err_type {
-#if defined(OPENTITAN_IS_EARLGREY)
+#if defined(OPENTITAN_IS_EARLGREY) || defined(OPENTITAN_IS_VERBANO)
   /**
    * A recoverable update error for one of the clocks.
    */

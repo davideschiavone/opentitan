@@ -35,6 +35,7 @@ opentitan_binary(
         "//hw/top_earlgrey:fpga_cw340",
         "//hw/top_earlgrey:sim_dv_base",
         "//hw/top_earlgrey:sim_verilator_base",
+        "//hw/top_verbano:sim_verilator_base",
         "//hw/top_darjeeling:sim_dv_base",
     ],
     features = ["use_lld"],
@@ -270,7 +271,7 @@ opentitan_test(
         "//hw/top_earlgrey:fpga_cw310_test_rom": None,
         "//hw/top_earlgrey:sim_dv": None,
         "//hw/top_earlgrey:sim_verilator": None,
-    },
+        "//hw/top_verbano:sim_verilator": None,    },
     deps = [
         "//sw/device/lib/testing/test_framework:ottf_main",
     ],
@@ -301,7 +302,7 @@ output_groups(
         "sim_verilator_rom",
         "sim_verilator_mapfile",
     ],
-    target_compatible_with = opentitan_require_top("earlgrey"),
+    target_compatible_with = opentitan_require_top("verbano"),
 )
 
 pkg_files(

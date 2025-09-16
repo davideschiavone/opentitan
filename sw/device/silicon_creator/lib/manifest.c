@@ -12,6 +12,9 @@
 #elif defined(OPENTITAN_IS_EARLGREY)
 #include "hw/top_earlgrey/sw/autogen/top_earlgrey.h"
 #define EFLASH_SIZE_BYES TOP_EARLGREY_EFLASH_SIZE_BYTES
+#elif defined(OPENTITAN_IS_VERBANO)
+#include "hw/top_verbano/sw/autogen/top_verbano.h"
+#define EFLASH_SIZE_BYES TOP_VERBANO_EFLASH_SIZE_BYTES
 #elif defined(OPENTITAN_IS_DARJEELING)
 #include "hw/top_darjeeling/sw/autogen/top_darjeeling.h"
 #define EFLASH_SIZE_BYES TOP_DARJEELING_RAM_MAIN_SIZE_BYTES

@@ -40,11 +40,11 @@ DIFS = {
     "adc_ctrl": {},
     "aes": {},
     "alert_handler": {
-        "ut_target_compatible_with": opentitan_require_top("earlgrey"),
+        "ut_target_compatible_with": opentitan_require_top("verbano"),
     },
     "aon_timer": {},
     "clkmgr": {
-        "ut_target_compatible_with": opentitan_require_top("earlgrey"),
+        "ut_target_compatible_with": opentitan_require_top("verbano"),
     },
     "csrng": {
         "deps": [":csrng_shared"],
@@ -69,22 +69,22 @@ DIFS = {
     },
     "otbn": {},
     "otp_ctrl": {
-        "ut_target_compatible_with": opentitan_require_top("earlgrey"),
+        "ut_target_compatible_with": opentitan_require_top("verbano"),
     },
     "pattgen": {},
     "pinmux": {
-        "ut_target_compatible_with": opentitan_require_top("earlgrey"),
+        "ut_target_compatible_with": opentitan_require_top("verbano"),
     },
     "pwm": {},
     "pwrmgr": {
-        "ut_target_compatible_with": opentitan_require_top("earlgrey"),
+        "ut_target_compatible_with": opentitan_require_top("verbano"),
     },
     "rom_ctrl": {},
     "rstmgr": {},
     "rv_core_ibex": {},
     "rv_dm": {},
     "rv_plic": {
-        "ut_target_compatible_with": opentitan_require_top("earlgrey"),
+        "ut_target_compatible_with": opentitan_require_top("verbano"),
     },
     "rv_timer": {},
     "soc_dbg_ctrl": {

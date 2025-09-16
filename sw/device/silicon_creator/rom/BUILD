@@ -128,11 +128,14 @@ cc_library(
         "//hw/top:rv_core_ibex_c_regs",
         "//hw/top:sensor_ctrl_c_regs",
         "//hw/top:sram_ctrl_c_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:hardened",
         "//sw/device/lib/base:multibits",
         "//sw/device/silicon_creator/lib/base:chip",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    }),
     alwayslink = True,
 )
 
@@ -358,7 +361,6 @@ cc_library(
         "//hw/top:flash_ctrl_c_regs",
         "//hw/top:gpio_c_regs",
         "//hw/top:otp_ctrl_c_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/base:bitfield",
         "//sw/device/lib/base:hardened",
@@ -367,7 +369,11 @@ cc_library(
         "//sw/device/silicon_creator/lib/base:chip",
         "//sw/device/silicon_creator/lib/drivers:flash_ctrl",
         "//sw/device/silicon_creator/lib/drivers:otp",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    })
 )
 
 cc_test(
@@ -378,10 +384,13 @@ cc_test(
         "//hw/top:flash_ctrl_c_regs",
         "//hw/top:gpio_c_regs",
         "//hw/top:otp_ctrl_c_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/silicon_creator/lib:bootstrap_unittest_util",
         "@googletest//:gtest_main",
-    ],
+    ] + select({
+        "//hw/top:is_earlgrey": ["//hw/top_earlgrey/sw/autogen:top_earlgrey"],
+        "//hw/top:is_verbano":  ["//hw/top_verbano/sw/autogen:top_verbano"],
+        "//conditions:default": [],
+    })
 )
 
 # To test this target, you must specify `--config=asan-libfuzzer`.

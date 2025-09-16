@@ -48,6 +48,20 @@
 #define EDN0_BASE_ADDR                      TOP_DARJEELING_EDN0_BASE_ADDR
 #undef SENSOR_CTRL_BASE_ADDR                /* No sensor control */
 
+#elif defined(OPENTITAN_IS_VERBANO)
+#include "otp_ctrl_regs.h"
+#include "sensor_ctrl_regs.h"
+#include "hw/top_verbano/sw/autogen/top_verbano_memory.h"
+#define OTP_CTRL_CORE_BASE_ADDR             TOP_VERBANO_OTP_CTRL_CORE_BASE_ADDR
+#define AST_BASE_ADDR                       TOP_VERBANO_AST_BASE_ADDR
+#define CLKMGR_AON_BASE_ADDR                TOP_VERBANO_CLKMGR_AON_BASE_ADDR
+#define SRAM_CTRL_MAIN_REGS_BASE_ADDR       TOP_VERBANO_SRAM_CTRL_MAIN_REGS_BASE_ADDR
+#define ENTROPY_SRC_BASE_ADDR               TOP_VERBANO_ENTROPY_SRC_BASE_ADDR
+#define CSRNG_BASE_ADDR                     TOP_VERBANO_CSRNG_BASE_ADDR
+#define EDN0_BASE_ADDR                      TOP_VERBANO_EDN0_BASE_ADDR
+#define SENSOR_CTRL_BASE_ADDR               TOP_VERBANO_SENSOR_CTRL_AON_BASE_ADDR
+
+
 #else
 #error unsupported top
 #endif

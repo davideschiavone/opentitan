@@ -81,7 +81,7 @@ def opentitan_select_top(values, default):
       name = "my_alias",
       actual = opentitan_select_top({
         "earlgrey": "//something:earlgrey",
-        ("englishbreakfast", "darjeeling"): "//something:else",
+        ("englishbreakfast", "darjeeling", "verbano"): "//something:else",
       }, "//something:error")
     )
     ```
@@ -100,7 +100,7 @@ def opentitan_require_top(top):
     Return a value that can be used with `target_compatible_with` to
     express that this target only works on the requested top.
     The argument can either be a string ("earlgrey") or a list of strings
-    (["earlgrey", "darjeeling"]).
+    (["earlgrey", "darjeeling", "verbano"]).
 
     Example:
     ```python
