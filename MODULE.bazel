@@ -412,4 +412,8 @@ top_desc.register(
     bazel_file = "//hw/top_englishbreakfast:defs.bzl",
     top_var = "ENGLISHBREAKFAST",
 )
+top_desc.register(
+    bazel_file = "//hw/top_verbano:defs.bzl",
+    top_var = "VERBANO",
+)
 use_repo(top_desc, "tops_desc")

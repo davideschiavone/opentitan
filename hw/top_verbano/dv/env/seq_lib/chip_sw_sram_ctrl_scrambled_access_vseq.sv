@@ -17,8 +17,8 @@ class chip_sw_sram_ctrl_scrambled_access_vseq extends chip_sw_base_vseq;
   // to avoid the location of the scramble buffer. This will have been allocated by the
   // compiler close to the start of the RAM.
   // For both, an offset that is at the midpoint of the SRAM should suffice.
-  localparam uint BACKDOOR_RET_OFFSET = (top_verbano_pkg::TOP_EARLGREY_SRAM_CTRL_RET_AON_RAM_SIZE_BYTES / 8);
-  localparam uint BACKDOOR_MAIN_OFFSET = (top_verbano_pkg::TOP_EARLGREY_SRAM_CTRL_MAIN_RAM_SIZE_BYTES / 8);
+  localparam uint BACKDOOR_RET_OFFSET = (top_verbano_pkg::TOP_VERBANO_SRAM_CTRL_RET_AON_RAM_SIZE_BYTES / 8);
+  localparam uint BACKDOOR_MAIN_OFFSET = (top_verbano_pkg::TOP_VERBANO_SRAM_CTRL_MAIN_RAM_SIZE_BYTES / 8);
 
   localparam string MAIN_INDEX = "0";
   localparam string MAIN_REQ_INDEX = "3";
@@ -148,7 +148,7 @@ class chip_sw_sram_ctrl_scrambled_access_vseq extends chip_sw_base_vseq;
   virtual task ret_backdoor_write(int addr);
     int retval;
     bit scr_key_valid;
-    int offset = addr - top_verbano_pkg::TOP_EARLGREY_SRAM_CTRL_RET_AON_RAM_BASE_ADDR;
+    int offset = addr - top_verbano_pkg::TOP_VERBANO_SRAM_CTRL_RET_AON_RAM_BASE_ADDR;
     // `backdoor` comes after `pattern` which is `BACKDOOR_DATA_WORDS` long.
     offset += BACKDOOR_DATA_WORDS * 4;
     forever begin
@@ -177,7 +177,7 @@ class chip_sw_sram_ctrl_scrambled_access_vseq extends chip_sw_base_vseq;
   virtual task main_backdoor_write(int addr);
     int retval;
     bit scr_key_valid;
-    int offset = addr - top_verbano_pkg::TOP_EARLGREY_SRAM_CTRL_MAIN_RAM_BASE_ADDR;
+    int offset = addr - top_verbano_pkg::TOP_VERBANO_SRAM_CTRL_MAIN_RAM_BASE_ADDR;
     // `backdoor` comes after `pattern` which is `BACKDOOR_DATA_WORDS` long.
     offset += BACKDOOR_DATA_WORDS * 4;
     forever begin

@@ -139,6 +139,13 @@ DARJEELING_TEST_ENVS = {
     "//hw/top_darjeeling:sim_dv": None,
 }
 
+
+# The default set of test environments for Verbano.
+VERBANO_TEST_ENVS = {
+    "//hw/top_verbano:sim_dv": None,
+}
+
+
 # Messages we expect for possible test outcomes.
 OTTF_SUCCESS_MSG = r"PASS.*\n"
 OTTF_FAILURE_MSG = r"(FAIL|FAULT).*\n"

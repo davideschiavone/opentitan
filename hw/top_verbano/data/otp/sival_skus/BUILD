@@ -10,10 +10,10 @@
 load(
     "//rules:const.bzl",
     "CONST",
-    "EARLGREY_LOC_ALERTS",
+    "VERBANO_LOC_ALERTS",
     "get_lc_items",
 )
-load("//hw/top_verbano/data/autogen:defs.bzl", "EARLGREY_ALERTS")
+load("//hw/top_verbano/data/autogen:defs.bzl", "VERBANO_ALERTS")
 load(
     "//rules:otp.bzl",
     "OTP_SIGVERIFY_FAKE_KEYS",
@@ -140,14 +140,14 @@ otp_json(
                 # See `alert_class_t` in
                 # sw/device/silicon_creator/lib/drivers/alert.h
                 "OWNER_SW_CFG_ROM_ALERT_CLASSIFICATION": otp_alert_classification(
-                    alert_list = EARLGREY_ALERTS,
+                    alert_list = VERBANO_ALERTS,
                     # The ordering is "prod, prod_end, dev, rma"
                     default = "X, X, X, X",
                 ),
                 # Set the classifications to kAlertClassX. See `alert_class_t` in
                 # sw/device/silicon_creator/lib/drivers/alert.h
                 "OWNER_SW_CFG_ROM_LOCAL_ALERT_CLASSIFICATION": otp_alert_classification(
-                    alert_list = EARLGREY_LOC_ALERTS,
+                    alert_list = VERBANO_LOC_ALERTS,
                     # The ordering is "prod, prod_end, dev, rma"
                     default = "X, X, X, X",
                 ),

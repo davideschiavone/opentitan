@@ -68,7 +68,7 @@ package chip_env_pkg;
 
   // ROM digest parameters
   localparam uint RomDigestDw = 256;
-  localparam uint RomMaxCheckAddr = top_verbano_pkg::TOP_EARLGREY_ROM_SIZE_BYTES -
+  localparam uint RomMaxCheckAddr = top_verbano_pkg::TOP_VERBANO_ROM_SIZE_BYTES -
                                     (RomDigestDw / 8);
 
   typedef virtual sw_logger_if         sw_logger_vif;

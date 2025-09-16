@@ -474,7 +474,7 @@ module tb;
           .depth ($size(`FLASH0_DATA_MEM_HIER)),
           .n_bits($bits(`FLASH0_DATA_MEM_HIER)),
           .err_detection_scheme(mem_bkdr_util_pkg::EccHamming_76_68),
-          .system_base_addr    (top_verbano_pkg::TOP_EARLGREY_EFLASH_BASE_ADDR));
+          .system_base_addr    (top_verbano_pkg::TOP_VERBANO_EFLASH_BASE_ADDR));
       m_mem_bkdr_util[FlashBank0Data] = data0;
       `MEM_BKDR_UTIL_FILE_OP(m_mem_bkdr_util[FlashBank0Data], `FLASH0_DATA_MEM_HIER)
 
@@ -485,7 +485,7 @@ module tb;
           .depth ($size(`FLASH0_INFO_MEM_HIER)),
           .n_bits($bits(`FLASH0_INFO_MEM_HIER)),
           .err_detection_scheme(mem_bkdr_util_pkg::EccHamming_76_68),
-          .system_base_addr    (top_verbano_pkg::TOP_EARLGREY_EFLASH_BASE_ADDR));
+          .system_base_addr    (top_verbano_pkg::TOP_VERBANO_EFLASH_BASE_ADDR));
       m_mem_bkdr_util[FlashBank0Info] = info0;
       `MEM_BKDR_UTIL_FILE_OP(m_mem_bkdr_util[FlashBank0Info], `FLASH0_INFO_MEM_HIER)
 
@@ -496,8 +496,8 @@ module tb;
           .depth ($size(`FLASH1_DATA_MEM_HIER)),
           .n_bits($bits(`FLASH1_DATA_MEM_HIER)),
           .err_detection_scheme(mem_bkdr_util_pkg::EccHamming_76_68),
-          .system_base_addr    (top_verbano_pkg::TOP_EARLGREY_EFLASH_BASE_ADDR +
-              top_verbano_pkg::TOP_EARLGREY_EFLASH_SIZE_BYTES /
+          .system_base_addr    (top_verbano_pkg::TOP_VERBANO_EFLASH_BASE_ADDR +
+              top_verbano_pkg::TOP_VERBANO_EFLASH_SIZE_BYTES /
               flash_ctrl_top_specific_pkg::NumBanks));
       m_mem_bkdr_util[FlashBank1Data] = data1;
       `MEM_BKDR_UTIL_FILE_OP(m_mem_bkdr_util[FlashBank1Data], `FLASH1_DATA_MEM_HIER)
@@ -509,8 +509,8 @@ module tb;
           .depth ($size(`FLASH1_INFO_MEM_HIER)),
           .n_bits($bits(`FLASH1_INFO_MEM_HIER)),
           .err_detection_scheme(mem_bkdr_util_pkg::EccHamming_76_68),
-          .system_base_addr    (top_verbano_pkg::TOP_EARLGREY_EFLASH_BASE_ADDR +
-              top_verbano_pkg::TOP_EARLGREY_EFLASH_SIZE_BYTES /
+          .system_base_addr    (top_verbano_pkg::TOP_VERBANO_EFLASH_BASE_ADDR +
+              top_verbano_pkg::TOP_VERBANO_EFLASH_SIZE_BYTES /
               flash_ctrl_top_specific_pkg::NumBanks));
       m_mem_bkdr_util[FlashBank1Info] = info1;
       `MEM_BKDR_UTIL_FILE_OP(m_mem_bkdr_util[FlashBank1Info], `FLASH1_INFO_MEM_HIER)
@@ -570,7 +570,7 @@ module tb;
           .n_bits($bits(`RAM_MAIN_MEM_HIER)),
           .err_detection_scheme(mem_bkdr_util_pkg::EccInv_39_32),
           .num_prince_rounds_half(2),
-          .system_base_addr    (top_verbano_pkg::TOP_EARLGREY_RAM_MAIN_BASE_ADDR));
+          .system_base_addr    (top_verbano_pkg::TOP_VERBANO_RAM_MAIN_BASE_ADDR));
       m_mem_bkdr_util[RamMain0] = ram_main0;
       `MEM_BKDR_UTIL_FILE_OP(m_mem_bkdr_util[RamMain0], `RAM_MAIN_MEM_HIER)
 
@@ -581,7 +581,7 @@ module tb;
           .depth ($size(`RAM_RET_MEM_HIER)),
           .n_bits($bits(`RAM_RET_MEM_HIER)),
           .err_detection_scheme(mem_bkdr_util_pkg::EccInv_39_32),
-          .system_base_addr    (top_verbano_pkg::TOP_EARLGREY_RAM_RET_AON_BASE_ADDR));
+          .system_base_addr    (top_verbano_pkg::TOP_VERBANO_RAM_RET_AON_BASE_ADDR));
       m_mem_bkdr_util[RamRet0] = ram_ret0;
       `MEM_BKDR_UTIL_FILE_OP(m_mem_bkdr_util[RamRet0], `RAM_RET_MEM_HIER)
 
@@ -598,7 +598,7 @@ module tb;
 `endif
           .key   (top_verbano_rnd_cnst_pkg::RndCnstRomCtrlScrKey),
           .nonce (top_verbano_rnd_cnst_pkg::RndCnstRomCtrlScrNonce),
-          .system_base_addr    (top_verbano_pkg::TOP_EARLGREY_ROM_BASE_ADDR));
+          .system_base_addr    (top_verbano_pkg::TOP_VERBANO_ROM_BASE_ADDR));
       m_mem_bkdr_util[Rom] = rom;
 
       // Knob to skip ROM backdoor logging (for sims that use ROM macro).
